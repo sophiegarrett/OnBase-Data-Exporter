@@ -1,4 +1,4 @@
-# OnBase File Exporter
+# OnBase Data Exporter
 
 ### A program that translates OnBase data dumps into a usable format.
 
