@@ -41,7 +41,7 @@ def read_config():
         "export_excel": config.getboolean("Export", "export_excel"),
         "excel_export_filename": config.get("Export", "excel_export_filename"),
         "combine_files": config.getboolean("Combine", "combine_files"),
-        "combined_file_directory": config.get("Combine", "combined_file_directory")
+        "combined_file_directory": config.get("Combine", "combined_file_directory", raw=True)
     }
 
     return config_values
