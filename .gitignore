@@ -2,9 +2,6 @@
 # .gitignore file copied from https://github.com/github/gitignore/blob/main/Python.gitignore
 ####
 
-# Adding config file temporarily
-config.ini
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
