@@ -2,6 +2,8 @@
 # .gitignore file copied from https://github.com/github/gitignore/blob/main/Python.gitignore
 ####
 
+# Adding config file temporarily
+onbase_data_exporter/config.ini
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
