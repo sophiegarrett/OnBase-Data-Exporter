@@ -93,7 +93,7 @@ def export_csv(output_data, output_csv_filename, document_attributes):
     """Exports data to CSV file."""
     print("Writing data to CSV file...")
     with open(output_csv_filename, mode='w') as output_file:
-        output_writer = csv.DictWriter(f=output_file, fieldnames=document_attributes + ["File Link"], restval="",
+        output_writer = csv.DictWriter(f=output_file, fieldnames=document_attributes, restval="",
                                        extrasaction="ignore", dialect="excel", lineterminator='\n')
         output_writer.writeheader()
         output_writer.writerows(output_data)
@@ -107,15 +107,16 @@ def export_excel(output_data, output_excel_filename, document_attributes):
     worksheet = workbook.add_worksheet()
 
     # Write column headers
-    for pos, attr in enumerate(document_attributes + ["File Link"]):
+    for pos, attr in enumerate(document_attributes):
         worksheet.write(0, pos, attr)
 
     # Write document data
     for row, doc in enumerate(output_data, start=1):
         for col, attr in enumerate(document_attributes):
-            worksheet.write(row, col, doc.get(attr))
-            if doc.get("File Link") is not None:
-                worksheet.write_url(row, len(document_attributes), doc.get("File Link"))
+            if attr == "File Link" and doc.get(attr) is not None:
+                worksheet.write_url(row, col, doc.get(attr))
+            else:
+                worksheet.write(row, col, doc.get(attr))
 
     workbook.close()
     print("Data written to Excel file.")

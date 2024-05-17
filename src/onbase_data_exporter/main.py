@@ -22,7 +22,7 @@ def main():
     excel_export_filepath = os.path.join(config_data.get("data_directory"), config_data.get("excel_export_filename"))
 
     document_attributes = ["DocTypeName", "DocDate", "Fiscal Year", "Provider Name", "Program Name", "Department",
-                           "Description", "Document Section", "Doc Handle Link", "Document Handle"]
+                           "Description", "Document Section", "Doc Handle Link", "Document Handle", "File Link"]
 
     file_attributes = ["DiskgroupNum", "VolumeNum", "FileSize", "NumOfPages", "DocRevNum", "Rendition", "PhysicalPageNum",
                        "ItemPageNum", "FileTypeNum", "ImageType", "Compress", "Xdpi", "Ydpi", "TextEncoding", "FileName"]
