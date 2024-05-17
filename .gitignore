@@ -3,7 +3,7 @@
 ####
 
 # Adding config file temporarily
-onbase_data_exporter/config.ini
+src/onbase_data_exporter/config.ini
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
