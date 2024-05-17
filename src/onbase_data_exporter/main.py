@@ -32,7 +32,7 @@ def main():
 
     # Combine files
     if config_data.get("combine_files"):
-        combine_files(document_metadata, config_data.get("data_directory"))
+        combine_files(document_metadata, config_data.get("data_directory"), config_data.get("combined_file_directory"))
 
     # Write output to CSV file
     if config_data.get("export_csv"):
@@ -40,7 +40,7 @@ def main():
 
     # Write output to Excel file
     if config_data.get("export_excel"):
-        export_excel(document_metadata, excel_export_filepath,config_data.get("data_directory"), document_attributes)
+        export_excel(document_metadata, excel_export_filepath, document_attributes)
 
     print("OnBase data conversion complete.")
 

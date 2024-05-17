@@ -100,7 +100,7 @@ def export_csv(output_data, output_csv_filename, document_attributes):
     print("Data written to CSV.")
 
 
-def export_excel(output_data, output_excel_filename, data_directory, document_attributes):
+def export_excel(output_data, output_excel_filename, document_attributes):
     """Exports data to Excel file."""
     print("Writing data to Excel file...")
     workbook = xlsxwriter.Workbook(output_excel_filename)
