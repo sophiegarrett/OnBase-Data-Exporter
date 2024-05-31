@@ -92,32 +92,38 @@ def import_data(import_filename, document_attributes, file_attributes):
 def export_csv(output_data, output_csv_filename, document_attributes):
     """Exports data to CSV file."""
     print("Writing data to CSV file...")
-    with open(output_csv_filename, mode='w') as output_file:
-        output_writer = csv.DictWriter(f=output_file, fieldnames=document_attributes, restval="",
-                                       extrasaction="ignore", dialect="excel", lineterminator='\n')
-        output_writer.writeheader()
-        output_writer.writerows(output_data)
+    try:
+        with open(output_csv_filename, mode='w') as output_file:
+            output_writer = csv.DictWriter(f=output_file, fieldnames=document_attributes, restval="",
+                                           extrasaction="ignore", dialect="excel", lineterminator='\n')
+            output_writer.writeheader()
+            output_writer.writerows(output_data)
+    except Exception as error:
+        print(f"Error: Could not export to CSV. Error message: {error}")
     print("Data written to CSV.")
 
 
 def export_excel(output_data, output_excel_filename, document_attributes):
     """Exports data to Excel file."""
     print("Writing data to Excel file...")
-    workbook = xlsxwriter.Workbook(output_excel_filename)
-    worksheet = workbook.add_worksheet()
+    try:
+        workbook = xlsxwriter.Workbook(output_excel_filename)
+        worksheet = workbook.add_worksheet()
 
-    # Write column headers
-    for pos, attr in enumerate(document_attributes):
-        worksheet.write(0, pos, attr)
+        # Write column headers
+        for pos, attr in enumerate(document_attributes):
+            worksheet.write(0, pos, attr)
 
-    # Write document data
-    for row, doc in enumerate(output_data, start=1):
-        for col, attr in enumerate(document_attributes):
-            if attr == "File Link" and doc.get(attr) is not None:
-                worksheet.write_url(row, col, doc.get(attr))
-            else:
-                worksheet.write(row, col, doc.get(attr))
+        # Write document data
+        for row, doc in enumerate(output_data, start=1):
+            for col, attr in enumerate(document_attributes):
+                if attr == "File Link" and doc.get(attr) is not None:
+                    worksheet.write_url(row, col, doc.get(attr))
+                else:
+                    worksheet.write(row, col, doc.get(attr))
 
-    workbook.close()
+        workbook.close()
+    except Exception as error:
+        print(f"Error: Could not export to Excel. Error message: {error}")
     print("Data written to Excel file.")
 
