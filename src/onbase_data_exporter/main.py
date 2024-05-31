@@ -31,8 +31,9 @@ def main():
     document_attributes = ["DocTypeName", "DocDate", "Fiscal Year", "Provider Name", "Program Name", "Department",
                            "Description", "Document Section", "Doc Handle Link", "Document Handle", "File Link"]
 
-    file_attributes = ["DiskgroupNum", "VolumeNum", "FileSize", "NumOfPages", "DocRevNum", "Rendition", "PhysicalPageNum",
-                       "ItemPageNum", "FileTypeNum", "ImageType", "Compress", "Xdpi", "Ydpi", "TextEncoding", "FileName"]
+    file_attributes = ["DiskgroupNum", "VolumeNum", "FileSize", "NumOfPages", "DocRevNum", "Rendition",
+                       "PhysicalPageNum", "ItemPageNum", "FileTypeNum", "ImageType", "Compress", "Xdpi", "Ydpi",
+                       "TextEncoding", "FileName"]
 
     # Import metadata
     document_metadata = import_data(config_data.get("import_file_path"), document_attributes, file_attributes)

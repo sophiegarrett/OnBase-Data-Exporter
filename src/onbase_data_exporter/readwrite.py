@@ -4,7 +4,6 @@ Written by Sophie Garrett
 Functions for importing data from the disk dump and exporting to CSV and Excel files.
 """
 
-import os.path
 import csv
 import xlsxwriter
 
@@ -71,7 +70,7 @@ def import_data(import_filename, document_attributes, file_attributes):
                 pass
 
             else:
-                print(f"Error: Invalid attribute {attribute}.")
+                raise ValueError(f"Invalid attribute: {attribute}")
 
         # Check if any document with the same handle exists. If so, append a number to it
         if doc.get("Document Handle") in doc_handles:
@@ -99,8 +98,9 @@ def export_csv(output_data, output_csv_filename, document_attributes):
             output_writer.writeheader()
             output_writer.writerows(output_data)
     except Exception as error:
-        print(f"Error: Could not export to CSV. Error message: {error}")
-    print("Data written to CSV.")
+        print(f"Error: Could not export to CSV. {error}")
+    else:
+        print("Data written to CSV.")
 
 
 def export_excel(output_data, output_excel_filename, document_attributes):
@@ -124,6 +124,6 @@ def export_excel(output_data, output_excel_filename, document_attributes):
 
         workbook.close()
     except Exception as error:
-        print(f"Error: Could not export to Excel. Error message: {error}")
-    print("Data written to Excel file.")
-
+        print(f"Error: Could not export to Excel. {error}")
+    else:
+        print("Data written to Excel file.")
