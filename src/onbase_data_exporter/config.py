@@ -1,13 +1,19 @@
 """
-config.py
-Written by Sophie Garrett
-Functions for creating and reading configuration files.
+Module for creating and reading configuration files.
+
+Functions:
+    create_config()
+    read_config() -> dictionary
+
+Creates and reads a file called config.ini in the same directory as the module.
 """
 
+# configparser module is part of the Python standard library
 import configparser
 
 
 def create_config():
+    """Create and save the default configuration file if it does not exist."""
     config = configparser.ConfigParser()
 
     # Add default config values
@@ -30,6 +36,7 @@ def create_config():
 
 
 def read_config():
+    """Read and parse the configuration file. Return a dictionary of configuration values."""
     config = configparser.ConfigParser()
     config.read("config.ini")
 
