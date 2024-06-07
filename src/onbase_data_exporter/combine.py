@@ -1,7 +1,8 @@
 """
-combine.py
-Written by Sophie Garrett
-Functions for combining and renaming files.
+Module for combining and renaming files.
+
+Functions:
+    combine_files(list of dictionaries, string, string, boolean)
 """
 
 import os
@@ -10,14 +11,26 @@ from PIL import Image
 
 
 def combine_files(data, input_directory, output_directory, skip_existing):
+    """Combine and rename document files.
+
+    Documents containing only one file will be copied to the output directory and renamed to their document handle.
+        The original file extension and most file metadata will be kept.
+    Documents containing multiple files will be combined into single PDFs. These will be saved in the output directory.
+        The file name will be {document handle}.pdf.
+
+    Parameters:
+        data (list): List of dictionaries containing document metadata
+                     Each dictionary corresponds to one document.
+                     Each dictionary contains the values for each document attribute
+                     and a list of all files in the document.
+        input_directory (string): Path to the directory containing input files
+        output_directory (string): Path to the directory to save output (combined) files in
+        skip_existing (bool): Setting for whether to skip existing files or not
+                              If True, files that already exist in the output directory will be skipped.
+                              If False, files that already exist in the output directory will be re-combined.
+    """
+
     print("Combining files...")
-
-    # NOTE: file extensions present:
-    # ['pdf', 'PDF', 'jpeg', 'tiff', 'png', 'tif', 'ctx', 'TIF', 'csv', 'pub', 'xls', 'jpg',
-    # 'doc', 'ppt', 'xlsx', 'docx', 'gif', 'pptx', 'txt']
-
-    # File extensions with multiple files per document:
-    # ['jpeg', 'tiff', 'png', 'tif', 'TIF']
 
     # Loop over each document
     for doc in data:

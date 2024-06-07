@@ -141,6 +141,7 @@ def export_excel(output_data, output_excel_filepath, document_attributes):
         output_excel_filepath (raw string): Path to the Excel file to be created
         document_attributes (list): List of strings containing the names of document attributes
     """
+
     print("Writing data to Excel file...")
     try:
         workbook = xlsxwriter.Workbook(output_excel_filepath)
