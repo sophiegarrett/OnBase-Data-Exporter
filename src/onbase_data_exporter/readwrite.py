@@ -1,24 +1,43 @@
 """
-readwrite.py
-Written by Sophie Garrett
-Functions for importing data from the disk dump and exporting to CSV and Excel files.
+Module for importing data from the disk dump and exporting to CSV and Excel files.
+
+Functions:
+    import_data(string, list of strings, list of strings) -> list of dictionaries
+    export_csv(list of dictionaries, string, list of strings)
+    export_excel(list of dictionaries, string, list of strings)
 """
 
 import csv
 import xlsxwriter
 
 
-def import_data(import_filename, document_attributes, file_attributes):
-    """Imports file metadata from OnBase data dump."""
+def import_data(import_filepath, document_attributes, file_attributes):
+    """Import file metadata from OnBase data dump. Return a list of dictionaries containing document metadata.
+
+    Parameters:
+        import_filepath (string): Path to the OnBase data dump text file
+        document_attributes (list): List of strings containing the names of document attributes
+        file_attributes (list): List of strings containing the names of file attributes
+
+    Returns:
+        output_data (list): List of dictionaries containing document metadata
+                            Each dictionary corresponds to one document.
+                            Each dictionary contains the values for each document attribute
+                                and a list of all files in the document.
+
+    Raises:
+        ValueError: Invalid attribute. This occurs if an attribute is found that is not in the document_attributes
+                    or file_attributes lists.
+    """
 
     print("Importing data from file...")
-    # Create list to hold document metadata
+    # Create a list to hold document metadata
     output_data = []
-    # Create set to hold document handles (makes checking for duplicates faster)
+    # Create a set to hold document handles (makes checking for duplicates faster)
     doc_handles = set()
 
     # Read data from file
-    with open(import_filename, mode='r') as input_file:
+    with open(import_filepath, mode='r') as input_file:
         input_data = input_file.read()
 
     # Remove first line and end section
@@ -88,11 +107,20 @@ def import_data(import_filename, document_attributes, file_attributes):
     return output_data
 
 
-def export_csv(output_data, output_csv_filename, document_attributes):
-    """Exports data to CSV file."""
+def export_csv(output_data, output_csv_filepath, document_attributes):
+    """Export data to a CSV file.
+
+    Parameters:
+        output_data (list): List of dictionaries containing document metadata
+                            Each dictionary corresponds to one document.
+                            Each dictionary contains the values for each document attribute and a path to the file.
+        output_csv_filepath (raw string): Path to the CSV file to be created
+        document_attributes (list): List of strings containing the names of document attributes
+    """
+
     print("Writing data to CSV file...")
     try:
-        with open(output_csv_filename, mode='w') as output_file:
+        with open(output_csv_filepath, mode='w') as output_file:
             output_writer = csv.DictWriter(f=output_file, fieldnames=document_attributes, restval="",
                                            extrasaction="ignore", dialect="excel", lineterminator='\n')
             output_writer.writeheader()
@@ -100,14 +128,22 @@ def export_csv(output_data, output_csv_filename, document_attributes):
     except Exception as error:
         print(f"Error: Could not export to CSV. {error}")
     else:
-        print("Data written to CSV.")
+        print("Data written to CSV file.")
 
 
-def export_excel(output_data, output_excel_filename, document_attributes):
-    """Exports data to Excel file."""
+def export_excel(output_data, output_excel_filepath, document_attributes):
+    """Export data to an Excel file.
+
+    Parameters:
+        output_data (list): List of dictionaries containing document metadata
+                            Each dictionary corresponds to one document.
+                            Each dictionary contains the values for each document attribute and a path to the file.
+        output_excel_filepath (raw string): Path to the Excel file to be created
+        document_attributes (list): List of strings containing the names of document attributes
+    """
     print("Writing data to Excel file...")
     try:
-        workbook = xlsxwriter.Workbook(output_excel_filename)
+        workbook = xlsxwriter.Workbook(output_excel_filepath)
         worksheet = workbook.add_worksheet()
 
         # Write column headers
