@@ -1,6 +1,6 @@
-"""
-Written by Sophie Garrett
-Program to translate OnBase data dump into usable form.
+"""OnBase Data Exporter
+
+A Python program that translates OnBase data dumps into a usable format.
 """
 
 import os.path
@@ -10,6 +10,13 @@ from combine import combine_files
 
 
 def main():
+    """Main function.
+
+    Raises:
+        NotADirectoryError: One of the required directories (data directory, export directory, or combined files
+                            directory) does not exist.
+    """
+
     print("Starting OnBase data export...")
 
     # Read configuration file
