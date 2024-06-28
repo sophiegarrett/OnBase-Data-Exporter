@@ -31,9 +31,10 @@ def combine_files(data, input_directory, output_directory, skip_existing):
     """
 
     print("Combining files...")
+    print(f"{len(data)} documents to combine.")
 
     # Loop over each document
-    for doc in data:
+    for index, doc in enumerate(data, start=1):
         try:
             if len(doc.get("Files")) == 0:
                 raise ValueError("No files associated with document.")
@@ -86,5 +87,8 @@ def combine_files(data, input_directory, output_directory, skip_existing):
                         doc["File Link"] = new_filepath
         except Exception as error:
             print(f"An unexpected error occurred while processing document #{doc.get("Document Handle")}: {error}")
+        finally:
+            if index % 200 == 0:
+                print(f"{index} documents of {len(data)} combined.")
 
     print("Files combined successfully.")
